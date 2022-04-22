@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">HelloWorld</string>
+    <string name="hello">Привет мир!</string>
+    <string name="agreement_full_text">Нажимая кнопку договор и политика </string>
+    <string name="confidential_info">договор</string>
+    <string name="privacy_policy">политика</string>
+</resources>
