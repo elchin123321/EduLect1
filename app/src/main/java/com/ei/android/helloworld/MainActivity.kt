@@ -71,6 +71,7 @@ class MainActivity : AppCompatActivity() {
             .transform(CropCircleTransformation())
             .placeholder(android.R.drawable.ic_media_pause)
             .error(android.R.drawable.ic_dialog_alert)
+
             .into(this)
     }
     fun ImageView.setImageGlide(url: String){

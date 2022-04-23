@@ -5,4 +5,7 @@
     <string name="agreement_full_text">Нажимая кнопку договор и политика </string>
     <string name="confidential_info">договор</string>
     <string name="privacy_policy">политика</string>
+    <string name="login">Логин</string>
+    <string name="invalid_email_message">invalid email</string>
+    <string name="valid_email_message">valid email</string>
 </resources>
