@@ -8,4 +8,5 @@
     <string name="login">login</string>
     <string name="invalid_email_message">invalid email</string>
     <string name="valid_email_message">valid email</string>
+    <string name="password">Password</string>
 </resources>
