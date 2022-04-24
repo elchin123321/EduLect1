@@ -1,17 +1,20 @@
 package com.ei.android.helloworld
 
 import android.content.ContentValues.TAG
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
-import android.text.TextWatcher
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.method.LinkMovementMethod
 import android.util.Log
 import android.util.Patterns.EMAIL_ADDRESS
 import android.view.View
-import android.view.inputmethod.InputMethodInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
-import android.widget.Toast
+import android.widget.CheckBox
+import android.widget.TextView
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
@@ -26,6 +29,41 @@ class InputLayoutActivity : AppCompatActivity() {
         val textInputLayoutPassword = findViewById<TextInputLayout>(R.id.textInputLayoutPassword)
         val textInputEditTextPassword = textInputLayoutPassword.editText as TextInputEditText
         val loginButton = findViewById<Button>(R.id.login_button)
+        val checkBox = findViewById<CheckBox>(R.id.checkBox)
+        val spannableString = SpannableString(getString(R.string.agreement_full_text))
+        val agreementTextView = findViewById<TextView>(R.id.agreementCBTextView)
+        val fullText = getString(R.string.agreement_full_text)
+        val confidential  = getString(R.string.confidential_info)
+        val policy = getString(R.string.privacy_policy)
+        val confidetialClicable =MyClickableSpan{
+            Snackbar.make(it,"GoToL1",Snackbar.LENGTH_SHORT).show()
+
+        }
+
+        val policyClicable = MyClickableSpan{
+            Snackbar.make(it,"GoToL2",Snackbar.LENGTH_SHORT).show()
+        }
+
+        spannableString.setSpan(
+            confidetialClicable,
+            fullText.indexOf(confidential),
+            fullText.indexOf(confidential)+confidential.length,
+            Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+        spannableString.setSpan(
+            policyClicable,
+            fullText.indexOf(policy),
+            fullText.indexOf(policy)+policy.length,
+            Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+        agreementTextView.run {
+            text = spannableString
+            movementMethod = LinkMovementMethod.getInstance()
+            highlightColor = Color.TRANSPARENT
+        }
+        loginButton.isEnabled = false
+        checkBox.setOnCheckedChangeListener{_,isChecked->loginButton.isEnabled = isChecked}
+
         loginButton.setOnClickListener{
             if(EMAIL_ADDRESS.matcher(textInputEditText.text.toString()).matches()){
                 hideKeyboard(textInputEditText)
