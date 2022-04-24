@@ -12,12 +12,16 @@ import android.text.Spanned
 import android.text.method.LinkMovementMethod
 import android.util.Log
 import android.util.Patterns.EMAIL_ADDRESS
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.CheckBox
 import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
@@ -39,7 +43,7 @@ class InputLayoutActivity : AppCompatActivity() {
         val confidential  = getString(R.string.confidential_info)
         val policy = getString(R.string.privacy_policy)
         val progressBar = findViewById<ProgressBar>(R.id.progressBar)
-        val contentLayout = findViewById<View>(R.id.content_layout)
+        val contentLayout = findViewById<ViewGroup>(R.id.content_layout)
         val confidetialClicable =MyClickableSpan{
             Snackbar.make(it,"GoToL1",Snackbar.LENGTH_SHORT).show()
 
@@ -78,6 +82,21 @@ class InputLayoutActivity : AppCompatActivity() {
                 Handler(Looper.myLooper()!!).postDelayed({
                     contentLayout.visibility = View.VISIBLE
                     progressBar.visibility = View.GONE
+                    //val dialog = BottomSheetDialog(this)
+                    //val view = LayoutInflater.from(this).inflate(R.layout.dialog, contentLayout, false)
+                    //dialog.setCancelable(false)
+                    //view.findViewById<View>(R.id.closeButton).setOnClickListener{
+                    //    dialog.dismiss()
+                    //}
+                    //dialog.setContentView(view)
+                    //dialog.show()
+                    val builder: AlertDialog.Builder = this@InputLayoutActivity.let{
+                        AlertDialog.Builder(it)
+                    }
+                    builder.setMessage(R.string.service_is_unavailable)
+                        .setTitle(R.string.attention)
+                    val dialog: AlertDialog = builder.create()
+                    dialog.show()
                 }, 3000)
             }else{
                 textInputLayout.isErrorEnabled = true

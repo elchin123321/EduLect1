@@ -9,4 +9,6 @@
     <string name="invalid_email_message">invalid email</string>
     <string name="valid_email_message">valid email</string>
     <string name="password">Пароль</string>
+    <string name="attention">Attention</string>
+    <string name="service_is_unavailable">Service is unavailable</string>
 </resources>
