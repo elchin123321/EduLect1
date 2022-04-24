@@ -4,6 +4,8 @@ import android.content.ContentValues.TAG
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.text.Editable
 import android.text.SpannableString
 import android.text.Spanned
@@ -14,6 +16,7 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.CheckBox
+import android.widget.ProgressBar
 import android.widget.TextView
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
@@ -35,6 +38,8 @@ class InputLayoutActivity : AppCompatActivity() {
         val fullText = getString(R.string.agreement_full_text)
         val confidential  = getString(R.string.confidential_info)
         val policy = getString(R.string.privacy_policy)
+        val progressBar = findViewById<ProgressBar>(R.id.progressBar)
+        val contentLayout = findViewById<View>(R.id.content_layout)
         val confidetialClicable =MyClickableSpan{
             Snackbar.make(it,"GoToL1",Snackbar.LENGTH_SHORT).show()
 
@@ -67,8 +72,13 @@ class InputLayoutActivity : AppCompatActivity() {
         loginButton.setOnClickListener{
             if(EMAIL_ADDRESS.matcher(textInputEditText.text.toString()).matches()){
                 hideKeyboard(textInputEditText)
-                loginButton.isEnabled = false
+                contentLayout.visibility = View.GONE
+                progressBar.visibility = View.VISIBLE
                 Snackbar.make(loginButton,"Go to postLogin",Snackbar.LENGTH_SHORT).show()
+                Handler(Looper.myLooper()!!).postDelayed({
+                    contentLayout.visibility = View.VISIBLE
+                    progressBar.visibility = View.GONE
+                }, 3000)
             }else{
                 textInputLayout.isErrorEnabled = true
                 textInputLayout.error = getString(R.string.invalid_email_message)
