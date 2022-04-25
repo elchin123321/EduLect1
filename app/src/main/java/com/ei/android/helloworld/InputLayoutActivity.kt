@@ -27,12 +27,37 @@ import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 
 class InputLayoutActivity : AppCompatActivity() {
+
+    private companion object{
+        const val INITIAL = 0
+        const val PROGRESS = 1
+        const val SUCCESS = 2
+        const val FAILED = 3
+        const val KEY = "screenState"
+    }
+    private var state = INITIAL
+
+    private lateinit var textInputLayout: TextInputLayout
+    private lateinit var textInputEditText: TextInputEditText
+
+    private val textWatcher = object : SimpleTextWatcher(){
+        override fun afterTextChanged(p0: Editable?) {
+            Log.d(TAG, "changed ${p0.toString()}")
+            textInputLayout.isErrorEnabled=false
+        }
+    }
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_input_layout)
+        savedInstanceState?.let{
+            state = it.getInt(KEY)
+        }
+        Log.d(TAG, "OnCreate: State is $state")
 
-        val textInputLayout = findViewById<TextInputLayout>(R.id.textInputLayout)
-        val textInputEditText = textInputLayout.editText as TextInputEditText
+        textInputLayout = findViewById<TextInputLayout>(R.id.textInputLayout)
+        textInputEditText = textInputLayout.editText as TextInputEditText
         val textInputLayoutPassword = findViewById<TextInputLayout>(R.id.textInputLayoutPassword)
         val textInputEditTextPassword = textInputLayoutPassword.editText as TextInputEditText
         val loginButton = findViewById<Button>(R.id.login_button)
@@ -78,8 +103,10 @@ class InputLayoutActivity : AppCompatActivity() {
                 hideKeyboard(textInputEditText)
                 contentLayout.visibility = View.GONE
                 progressBar.visibility = View.VISIBLE
+                state = PROGRESS
                 Snackbar.make(loginButton,"Go to postLogin",Snackbar.LENGTH_SHORT).show()
                 Handler(Looper.myLooper()!!).postDelayed({
+                    state = FAILED
                     contentLayout.visibility = View.VISIBLE
                     progressBar.visibility = View.GONE
                     //val dialog = BottomSheetDialog(this)
@@ -90,13 +117,7 @@ class InputLayoutActivity : AppCompatActivity() {
                     //}
                     //dialog.setContentView(view)
                     //dialog.show()
-                    val builder: AlertDialog.Builder = this@InputLayoutActivity.let{
-                        AlertDialog.Builder(it)
-                    }
-                    builder.setMessage(R.string.service_is_unavailable)
-                        .setTitle(R.string.attention)
-                    val dialog: AlertDialog = builder.create()
-                    dialog.show()
+                    showDialog()
                 }, 3000)
             }else{
                 textInputLayout.isErrorEnabled = true
@@ -106,6 +127,39 @@ class InputLayoutActivity : AppCompatActivity() {
 
         textInputEditText.listenChanges { text-> Log.d(TAG,text) }
         textInputEditText.listenChanges { textInputLayout.isErrorEnabled = false }
+        when(state){
+            FAILED->showDialog()
+            SUCCESS->{
+                Snackbar.make(contentLayout,"Success", Snackbar.LENGTH_LONG).show()
+                state = INITIAL
+            }
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        textInputEditText.removeTextChangedListener(textWatcher)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        textInputEditText.addTextChangedListener(textWatcher)
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putInt(KEY, state)
+    }
+
+    private fun showDialog(){
+        val builder: AlertDialog.Builder = this@InputLayoutActivity.let{
+            AlertDialog.Builder(it)
+        }
+        builder.setMessage(R.string.service_is_unavailable)
+            .setTitle(R.string.attention)
+        val dialog: AlertDialog = builder.create()
+        dialog.setOnCancelListener { state = INITIAL }
+        dialog.show()
     }
 
 }
