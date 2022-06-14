@@ -1,4 +1,4 @@
-package com.ei.android.helloworld.helloworld
+package com.ei.android.helloworld.mvvm_sample
 
 import android.content.Context
 import android.content.Context.MODE_PRIVATE

@@ -1,4 +1,4 @@
-package com.ei.android.helloworld.helloworld
+package com.ei.android.helloworld.mvvm_sample
 
 class ViewModel (private val model: Model){
     private var textObservable: TextObservable? = null

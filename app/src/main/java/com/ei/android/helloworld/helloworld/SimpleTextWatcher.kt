@@ -1,4 +1,4 @@
-package com.ei.android.helloworld
+package com.ei.android.helloworld.helloworld
 
 import android.text.Editable
 import android.text.TextWatcher

@@ -1,4 +1,4 @@
-package com.ei.android.helloworld
+package com.ei.android.helloworld.helloworld
 
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
@@ -10,6 +10,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.ei.android.helloworld.R
 import com.google.android.material.snackbar.Snackbar
 import com.squareup.picasso.Picasso
 import jp.wasabeef.picasso.transformations.CropCircleTransformation
@@ -34,7 +35,7 @@ class MainActivity : AppCompatActivity() {
         image2.setImageGlide(URL)
 
 
-        val confidetialClicable =MyClickableSpan{
+        val confidetialClicable = MyClickableSpan{
             Snackbar.make(it,"GoToL1",Snackbar.LENGTH_SHORT).show()
 
         }

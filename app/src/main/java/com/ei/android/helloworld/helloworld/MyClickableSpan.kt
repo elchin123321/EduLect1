@@ -1,4 +1,4 @@
-package com.ei.android.helloworld
+package com.ei.android.helloworld.helloworld
 
 import android.graphics.Color
 import android.text.TextPaint

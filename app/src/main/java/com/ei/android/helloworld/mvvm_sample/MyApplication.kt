@@ -1,4 +1,4 @@
-package com.ei.android.helloworld.helloworld
+package com.ei.android.helloworld.mvvm_sample
 
 import android.app.Application
 

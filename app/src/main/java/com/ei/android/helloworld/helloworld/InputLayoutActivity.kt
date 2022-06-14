@@ -1,7 +1,6 @@
-package com.ei.android.helloworld
+package com.ei.android.helloworld.helloworld
 
 import android.content.ContentValues.TAG
-import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -13,7 +12,6 @@ import android.text.Spanned
 import android.text.method.LinkMovementMethod
 import android.util.Log
 import android.util.Patterns.EMAIL_ADDRESS
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
@@ -22,7 +20,7 @@ import android.widget.CheckBox
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
-import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.ei.android.helloworld.R
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
@@ -70,7 +68,7 @@ class InputLayoutActivity : AppCompatActivity() {
         val policy = getString(R.string.privacy_policy)
         val progressBar = findViewById<ProgressBar>(R.id.progressBar)
         val contentLayout = findViewById<ViewGroup>(R.id.content_layout)
-        val confidetialClicable =MyClickableSpan{
+        val confidetialClicable = MyClickableSpan{
             Snackbar.make(it,"GoToL1",Snackbar.LENGTH_SHORT).show()
 
         }
@@ -121,8 +119,8 @@ class InputLayoutActivity : AppCompatActivity() {
         textInputEditText.listenChanges { text-> Log.d(TAG,text) }
         textInputEditText.listenChanges { textInputLayout.isErrorEnabled = false }
         when(state){
-            FAILED->showDialog()
-            SUCCESS->{
+            FAILED ->showDialog()
+            SUCCESS ->{
                 Snackbar.make(contentLayout,"Success", Snackbar.LENGTH_LONG).show()
                 state = INITIAL
             }
