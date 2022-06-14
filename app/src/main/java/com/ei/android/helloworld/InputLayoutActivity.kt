@@ -110,14 +110,6 @@ class InputLayoutActivity : AppCompatActivity() {
                     state = FAILED
                     contentLayout.visibility = View.VISIBLE
                     progressBar.visibility = View.GONE
-                    //val dialog = BottomSheetDialog(this)
-                    //val view = LayoutInflater.from(this).inflate(R.layout.dialog, contentLayout, false)
-                    //dialog.setCancelable(false)
-                    //view.findViewById<View>(R.id.closeButton).setOnClickListener{
-                    //    dialog.dismiss()
-                    //}
-                    //dialog.setContentView(view)
-                    //dialog.show()
                     showDialog()
                 }, 3000)
             }else{

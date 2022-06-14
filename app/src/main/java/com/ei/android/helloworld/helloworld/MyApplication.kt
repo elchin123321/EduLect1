@@ -1,4 +1,4 @@
-package com.ei.android.helloworld.mvvm_sample
+package com.ei.android.helloworld.helloworld
 
 import android.app.Application
 
@@ -7,6 +7,6 @@ class MyApplication: Application() {
 
     override fun onCreate() {
         super.onCreate()
-        viewModel = ViewModel(Model())
+        viewModel = ViewModel(Model(CacheDataSource(this)))
     }
 }

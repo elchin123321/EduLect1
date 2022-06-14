@@ -1,22 +1,28 @@
-package com.ei.android.helloworld.mvvm_sample
-
-import java.util.*
+package com.ei.android.helloworld.helloworld
 
 class ViewModel (private val model: Model){
     private var textObservable: TextObservable? = null
 
-    private val textCallback = object : TextCallback{
+    private val textCallback = object : TextCallback {
         override fun updateText(str: String) {
             textObservable?.postValue(str)
         }
     }
     fun init(textObservable: TextObservable){
         this.textObservable = textObservable
-        model.start(textCallback)
     }
     fun clear(){
         textObservable = null
     }
+
+    fun resumeCounting(){
+        model.start(textCallback)
+    }
+
+    fun pauseCounting(){
+        model.stop()
+    }
+
 }
 
 interface TextCallback {
@@ -32,4 +38,6 @@ class TextObservable {
     fun postValue(text: String){
         callback.updateText(text)
     }
+
+
 }

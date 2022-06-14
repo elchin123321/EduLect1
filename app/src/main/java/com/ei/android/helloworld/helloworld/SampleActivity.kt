@@ -1,4 +1,4 @@
-package com.ei.android.helloworld.mvvm_sample
+package com.ei.android.helloworld.helloworld
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -8,6 +8,7 @@ import com.ei.android.helloworld.R
 class SampleActivity : AppCompatActivity() {
 
     private lateinit var viewModel: ViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sample)
@@ -25,5 +26,15 @@ class SampleActivity : AppCompatActivity() {
     override fun onDestroy() {
         viewModel.clear()
         super.onDestroy()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.resumeCounting()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        viewModel.pauseCounting()
     }
 }
